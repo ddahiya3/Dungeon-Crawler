@@ -9,9 +9,9 @@ Links :
    
 3. [Article on how to use it](http://zmc.space/posts/ofxactionmanager-openframeworks-animations)
 
-4. [ofx2DFigures documentation] (https://github.com/bestsheep1/ofx2DFigures)
+4. [ofx2DFigures documentation](https://github.com/bestsheep1/ofx2DFigures)
 
-5. [ofxBox2D documentation] (https://github.com/vanderlin/ofxBox2d)
+5. [ofxBox2D documentation](https://github.com/vanderlin/ofxBox2d)
 
 
 
