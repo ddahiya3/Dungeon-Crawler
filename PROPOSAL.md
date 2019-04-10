@@ -1,5 +1,5 @@
-Game Engine : **ofxActionManager**
-Physics Engine : **ofx2DFigures**
+* Game Engine : **ofxActionManager**
+* Physics Engine : **ofx2DFigures** & **ofxBox2D**
 
 Links : 
 
