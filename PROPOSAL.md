@@ -13,9 +13,11 @@ Links :
 
 5. [ofxBox2D documentation](https://github.com/vanderlin/ofxBox2d)
 
+6. [guide to game dev. in openFramworks](https://openframeworks.cc/ofBook/chapters/game_design.html)
+
 
 
 Proposal :
 
-* Make a 2-D game using the libraries (not yet sure about specifics)
+* Make a 2-D game using the libraries (something similar to enter the gungeon)
 * Experiemnting with the library to see whats possible (will update  later...)
