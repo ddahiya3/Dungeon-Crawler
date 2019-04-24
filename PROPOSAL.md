@@ -19,5 +19,5 @@ Links :
 
 Proposal :
 
-* Make a 2-D game using the libraries (something similar to enter the gungeon)
+* Make a 2-D Dungeon Crawler game using the libraries (something similar to enter the gungeon)
 * Experiemnting with the library to see whats possible (will update  later...)
