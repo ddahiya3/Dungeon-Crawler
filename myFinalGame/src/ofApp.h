@@ -3,6 +3,7 @@
 #include "ofMain.h"
 
 #include "../Player.h"
+#include "../Projectile.h"
 
 class ofApp : public ofBaseApp{
 
@@ -22,5 +23,26 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+
+
+		ofImage player_image;
+		ofImage enemy_bullet_image;
+		ofImage player_bullet_image;
+		ofImage enemy_image;
+		ofImage life_image;
+		ofImage start_screen;
+		ofImage end_screen;
+
+		ofTrueTypeFont score_font;
+
+
+		vector<Projectile> projectile_list;
+		//vector<Enemy> enemies;
+		//vector<Life> bonuses;
+
+		float max_enemy_amplitude;
+		float max_enemy_shoot_interval;
+
+		void update_bullets();
 		
 };
