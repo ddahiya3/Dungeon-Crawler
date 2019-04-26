@@ -24,7 +24,8 @@ void Projectile::draw() const {
 	img->draw(pos.x - width / 2, pos.y - width / 2);
 }
 
-ofPoint Projectile::calculate_direction(ofPoint p1, ofPoint p2) {
+ofPoint Projectile::calculate_direction(ofPoint p1, ofPoint p2) const
+{
 
 	float x_new = p2.x - p1.x;
 	float y_new = p2.y - p1.y;

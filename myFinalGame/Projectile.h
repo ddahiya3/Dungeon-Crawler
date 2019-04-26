@@ -17,7 +17,7 @@ public:
 	void update();
 	void draw() const;
 
-	ofPoint calculate_direction(ofPoint p1, ofPoint p2);
+	ofPoint calculate_direction(ofPoint p1, ofPoint p2) const;
 
 	ofImage * img;
 };
