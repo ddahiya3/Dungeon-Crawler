@@ -5,6 +5,6 @@
 * Will start working on projectiles and their movements soon
 
 **4/25/2019**
-*Added projectile class
-*Sifficulty controlling projectile paths and computing them properly
-*Solved by normalising a direction pointer
+* Added projectile class
+* Difficulty controlling projectile paths and computing them properly
+* Solved by normalising a direction pointer
