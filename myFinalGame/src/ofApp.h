@@ -43,6 +43,6 @@ class ofApp : public ofBaseApp{
 		float max_enemy_amplitude;
 		float max_enemy_shoot_interval;
 
-		void update_bullets();
+		void update_projectiles();
 		
 };

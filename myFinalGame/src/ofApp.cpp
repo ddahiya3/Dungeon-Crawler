@@ -4,6 +4,7 @@
 string game_state;
 int score;
 Player player_1;
+ofPoint temp_point;
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -26,11 +27,30 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
 
+	if (game_state == "start") {
+
+	} else if (game_state == "game") {
+		player_1.update();
+		update_projectiles();
+	}
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
 
+	if (game_state == "start") {
+		start_screen.draw(0, 0);
+	} else if (game_state == "game") {
+		ofBackground(0, 0, 0);
+		player_1.draw();
+
+		for (int i = 0; i < projectile_list.size(); i++) {
+			projectile_list[i].draw();
+		}
+	} else if (game_state == "end") {
+		end_screen.draw(0, 0);
+		//draw_score();
+	}
 }
 
 //--------------------------------------------------------------
@@ -94,7 +114,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 void ofApp::mousePressed(int x, int y, int button){
 
 	Projectile new_projectile;
-	ofPoint temp_point;
+	
 	temp_point.x = x;
 	temp_point.y = y;
 	new_projectile.setup(true, player_1.pos, temp_point, player_1.speed, &player_bullet_image);
@@ -132,10 +152,10 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 }
 
 //--------------------------------------------------------------
-void ofApp::update_bullets() {
+void ofApp::update_projectiles() {
 	for (int i = 0; i < projectile_list.size(); i++) {
 		projectile_list[i].update();
-		if (projectile_list[i].pos.y == projectile_list[i].mouse_clicked_at.y || projectile_list[i].pos.x == projectile_list[i].mouse_clicked_at.x) {
+		if (projectile_list[i].pos.y == projectile_list[i].mouse_clicked_at.y && projectile_list[i].pos.x == projectile_list[i].mouse_clicked_at.x) {
 			projectile_list.erase(projectile_list.begin() + i);
 		}
 	}

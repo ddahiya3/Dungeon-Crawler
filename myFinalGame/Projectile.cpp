@@ -14,18 +14,16 @@ void Projectile::setup(bool from_p, ofPoint position_of_fire, ofPoint mouse_posi
 }
 void Projectile::update() {
 	if (from_player && pos.x != mouse_clicked_at.x && pos.y != mouse_clicked_at.y) {
-		if (pos.x < mouse_clicked_at.x) {
+		if (start_pos.x < mouse_clicked_at.x) {
 			pos.x += speed;
 		} else {
 			pos.x -= speed;
 		}
-		if (pos.y < mouse_clicked_at.y) {
-			pos.y += ((start_pos.y - mouse_clicked_at.y) / (start_pos.x - mouse_clicked_at.x))*(speed);
-		} else {
+		if (start_pos.y > mouse_clicked_at.y) {
 			pos.y -= ((start_pos.y - mouse_clicked_at.y) / (start_pos.x - mouse_clicked_at.x))*(speed);
+		} else {
+			pos.y += ((mouse_clicked_at.y - start_pos.y) / (mouse_clicked_at.x - start_pos.x))*(speed);
 		}
-	} else  {
-		pos.y += speed;
 	}
 }
 void Projectile::draw() const {
