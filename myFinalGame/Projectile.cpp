@@ -10,22 +10,32 @@ void Projectile::setup(bool from_p, ofPoint position_of_fire, ofPoint mouse_posi
 	width = img->getWidth();
 	mouse_clicked_at = mouse_position;
 	start_pos = position_of_fire;
+	direction_projectile = calculate_direction(mouse_clicked_at, start_pos);
+
 
 }
 void Projectile::update() {
 	if (from_player && pos.x != mouse_clicked_at.x && pos.y != mouse_clicked_at.y) {
-		if (start_pos.x < mouse_clicked_at.x) {
-			pos.x += speed;
-		} else {
-			pos.x -= speed;
-		}
-		if (start_pos.y > mouse_clicked_at.y) {
-			pos.y -= ((start_pos.y - mouse_clicked_at.y) / (start_pos.x - mouse_clicked_at.x))*(speed);
-		} else {
-			pos.y += ((mouse_clicked_at.y - start_pos.y) / (mouse_clicked_at.x - start_pos.x))*(speed);
-		}
+		pos.x -= direction_projectile.x * speed; //* ofGetElapsedTimeMillis();
+		pos.y -= direction_projectile.y * speed; //* ofGetElapsedTimeMillis();
 	}
 }
 void Projectile::draw() const {
 	img->draw(pos.x - width / 2, pos.y - width / 2);
+}
+
+ofPoint Projectile::calculate_direction(ofPoint p1, ofPoint p2) {
+
+	float x_new = p2.x - p1.x;
+	float y_new = p2.y - p1.y;
+
+	float normalising_number = pow(x_new,2) + pow(y_new,2);
+	float normalising_factor = sqrt(normalising_number);
+
+	ofPoint new_vect;
+	new_vect.set(x_new/normalising_factor, y_new/normalising_factor);
+
+	return new_vect;
+
+
 }
