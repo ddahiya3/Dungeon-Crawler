@@ -13,6 +13,12 @@
     <ClCompile Include="Projectile.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyType1.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="GameBrain.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -27,6 +33,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="Projectile.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyType1.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="GameBrain.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

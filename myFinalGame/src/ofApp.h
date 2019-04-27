@@ -4,6 +4,8 @@
 
 #include "../Player.h"
 #include "../Projectile.h"
+#include "../EnemyType1.h"
+#include "../GameBrain.h"
 
 class ofApp : public ofBaseApp{
 
@@ -37,11 +39,13 @@ class ofApp : public ofBaseApp{
 
 
 		vector<Projectile> projectile_list;
-		//vector<Enemy> enemies;
+		vector<EnemyType1> enemies_type_1;
 		//vector<Life> bonuses;
 
 		float max_enemy_amplitude;
 		float max_enemy_shoot_interval;
+
+		GameBrain game_brain;
 
 		void update_projectiles();
 		

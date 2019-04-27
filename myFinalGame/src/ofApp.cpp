@@ -6,6 +6,8 @@ int score;
 Player player_1;
 ofPoint temp_point;
 
+ofPoint empty_point;
+
 //--------------------------------------------------------------
 void ofApp::setup(){
 
@@ -32,6 +34,21 @@ void ofApp::update(){
 	} else if (game_state == "game") {
 		player_1.update();
 		update_projectiles();
+
+		for (int i = 0; i < enemies_type_1.size(); i++) {
+			enemies_type_1[i].update();
+			if (enemies_type_1[i].time_to_shoot()) {
+				Projectile new_projectile;
+				new_projectile.setup(false, enemies_type_1[i].pos, empty_point, enemies_type_1[i].speed, &enemy_bullet_image, player_1.pos);
+				projectile_list.push_back(new_projectile);
+			}
+		}
+
+		if (game_brain.should_spawn()) {
+			EnemyType1 new_enemy;
+			new_enemy.setup(max_enemy_amplitude, max_enemy_shoot_interval, &enemy_image);
+			enemies_type_1.push_back(new_enemy);
+		}
 	}
 }
 
@@ -43,6 +60,10 @@ void ofApp::draw(){
 	} else if (game_state == "game") {
 		ofBackground(0, 0, 0);
 		player_1.draw();
+
+		for (int i = 0; i < enemies_type_1.size(); i++) {
+			enemies_type_1[i].draw();
+		}
 
 		for (int i = 0; i < projectile_list.size(); i++) {
 			projectile_list[i].draw();
@@ -80,7 +101,8 @@ void ofApp::keyReleased(int key){
 
 	if (game_state == "start") {
 		game_state = "game";
-		//level_controller.setup(ofGetElapsedTimeMillis());
+		game_brain.setup(ofGetElapsedTimeMillis(), 5000);
+
 	} else if (game_state == "game") {
 		if (key == OF_KEY_LEFT) {
 			player_1.is_left_pressed = false;
@@ -117,7 +139,7 @@ void ofApp::mousePressed(int x, int y, int button){
 	
 	temp_point.x = x;
 	temp_point.y = y;
-	new_projectile.setup(true, player_1.pos, temp_point, player_1.speed, &player_bullet_image);
+	new_projectile.setup(true, player_1.pos, temp_point, player_1.speed, &player_bullet_image,player_1.pos);
 	projectile_list.push_back(new_projectile);
 }
 
@@ -159,5 +181,4 @@ void ofApp::update_projectiles() {
 			projectile_list.erase(projectile_list.begin() + i);
 		}
 	}
-	//check_bullet_collisions();
 }
