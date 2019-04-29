@@ -13,10 +13,13 @@
     <ClCompile Include="Projectile.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyType1.cpp">
+    <ClCompile Include="GameBrain.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="GameBrain.cpp">
+    <ClCompile Include="Enemy.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUp.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,10 +38,13 @@
     <ClInclude Include="Projectile.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyType1.h">
+    <ClInclude Include="GameBrain.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="GameBrain.h">
+    <ClInclude Include="Enemy.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerUp.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

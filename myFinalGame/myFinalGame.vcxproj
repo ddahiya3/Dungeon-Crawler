@@ -180,17 +180,19 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="EnemyType1.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameBrain.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PowerUp.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EnemyType1.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameBrain.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PowerUp.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="src\ofApp.h" />
   </ItemGroup>

@@ -21,8 +21,8 @@ void Player::update() {
 	calculate_movement();
 }
 
-void Player::draw() const
-{
+void Player::draw() const {
+
 	img->draw(pos.x - width / 2, pos.y - height / 2);
 
 }

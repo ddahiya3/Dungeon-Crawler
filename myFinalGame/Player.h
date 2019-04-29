@@ -8,7 +8,11 @@ public:
 
 	int lives;
 
+	float damage_taken_per_life;
+
 	bool is_left_pressed, is_right_pressed, is_down_pressed, is_up_pressed;
+
+	float damage_per_hit;
 
 	void setup(ofImage * _img);
 	void update();
@@ -17,7 +21,8 @@ public:
 
 	void calculate_movement();
 
-	bool check_can_shoot();
+	//bool check_can_shoot();
+
 
 	ofImage * img;
 

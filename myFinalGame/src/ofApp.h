@@ -4,7 +4,7 @@
 
 #include "../Player.h"
 #include "../Projectile.h"
-#include "../EnemyType1.h"
+#include "../Enemy.h"
 #include "../GameBrain.h"
 
 class ofApp : public ofBaseApp{
@@ -37,16 +37,25 @@ class ofApp : public ofBaseApp{
 
 		ofTrueTypeFont score_font;
 
+		ofSoundPlayer collision_sound;
+
 
 		vector<Projectile> projectile_list;
-		vector<EnemyType1> enemies_type_1;
+		vector<Enemy> enemies;
 		//vector<Life> bonuses;
 
-		float max_enemy_amplitude;
-		float max_enemy_shoot_interval;
+		float max_enemy_shoot_interval = 1.0;
 
 		GameBrain game_brain;
 
 		void update_projectiles();
+
+		void check_collisions();
+
+		void change_current_level();
+
+		void enemy_and_projectiles_out_of_bounds();
+
+		void draw_lives();
 		
 };
