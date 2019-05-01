@@ -3,8 +3,8 @@
 #include "Enemy.h"
 
 void Enemy::setup(float max_enemy_shoot_interval, ofImage * enemy_image, string enemy_type) {
-	pos.x = ofRandom(ofGetWidth());
-	pos.y = ofRandom(ofGetHeight());
+	pos.x = ofRandom(ofGetWidth() - 150);
+	pos.y = ofRandom(ofGetHeight() - 150);
 	img = enemy_image;
 	width = img->getWidth();
 	shoot_interval = ofRandom(0.5, max_enemy_shoot_interval);
@@ -15,8 +15,8 @@ void Enemy::setup(float max_enemy_shoot_interval, ofImage * enemy_image, string 
 }
 void Enemy::update() {
 
-	pos.y += cos(ofGetElapsedTimef()); 
-	pos.x += sin(ofGetElapsedTimef());
+	pos.y += cos(ofGetElapsedTimef()) + ofRandom(-5, 5);
+	pos.x += sin(ofGetElapsedTimef()) + ofRandom(-5, 5);
 	
 }
 void Enemy::draw() const {
@@ -34,6 +34,6 @@ float Enemy::calculate_health(string enemy) {
 	if (enemy == "base_enemy") {
 		return 1.0;
 	} else if (enemy == "second_form_enemy") {
-		return 2.0;
-	}
+		return 3.0;
+	} 
 }

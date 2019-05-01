@@ -9,10 +9,10 @@ void Player::setup(ofImage * _img_right, ofImage * _img_left) {
 	speed = 5;
 
 	img_right = _img_right;
-	img_right->resize(50, 50);
+	img_right->resize(100, 100);
 
 	img_left = _img_left;
-	img_left->resize(50, 50);
+	img_left->resize(100, 100);
 
 	width = height = img_right->getWidth();
 
@@ -62,8 +62,6 @@ void Player::power_up_affect(string stat, float boost, int sign) {
 		damage_per_hit += sign * boost;
 	} else if (stat == "speed") {
 		speed += sign * boost;
-	} else if (stat == "health_no_time") {
-		lives += boost;
 	}
 }
 
@@ -86,8 +84,8 @@ void Player::update_power_ups(vector <PowerUp> current_power_ups) {
 void Player::change_image(ofImage* _img_right, ofImage* _img_left) {
 	
 	img_right = _img_right;
-	img_right->resize(50, 50);
+	img_right->resize(70, 70);
 
 	img_left = _img_left;
-	img_left->resize(50, 50);
+	img_left->resize(70, 70);
 }

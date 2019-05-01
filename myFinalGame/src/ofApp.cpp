@@ -48,12 +48,23 @@ void ofApp::setup(){
 	wizard_right.load("sprites/wizard/right.png");
 	wizard_left.load("sprites/wizard/left.png");
 
-	enemy_image.load("enemy0.png");
+	powerup_speed.load("speed.png");
+	powerup_health.load("health.png");
+	powerup_damage.load("damage.png");
+
+	enemy_base_form.load("enemy1.png");
+	enemy_base_form.resize(50, 50);
+
+	enemy_second_form.load("enemy2.png");
+	enemy_second_form.resize(50, 50);
+
 	enemy_bullet_image.load("enemy_bullet.png");
 	player_bullet_image.load("player_bullet.png");
 	life_image.load("life_image.png");
 
-	start_screen.load("start_screen.png");
+	start_screen.load("DC-Logo-2.png");
+	start_screen.resize(ofGetWidth(), ofGetHeight());
+
 	end_screen.load("end_screen.png");
 	score_font.load("font2.otf", 48);
 
@@ -63,11 +74,28 @@ void ofApp::setup(){
 
 	collision_sound.load("hitsound.wav");
 
+	GUGD_sound.load("level1.mp3");
+	GUGD_sound.setLoop(true);
+
+	SSS_sound.load("SSS.mp3");
+	SSS_sound.setLoop(true);
+
 	
+	play_1.addListener(this, &ofApp::play_pressedGUGD);
+	play_2.addListener(this, &ofApp::play_pressedSSS);
+	stop.addListener(this, &ofApp::stop_pressed);
 	panel.setup();
 	panel.add(spritenumbers.setup("Choose Your Sprite", 0, 0, 10));
+	panel.add(play_1.setup("Play Song 1"));
+	panel.add(play_2.setup("Play Song 2"));
+	panel.add(stop.setup("Mute Music"));
+
+
 
 	player_1.setup(&berzerker_right, &berzerker_left);
+
+
+	
 }
 
 //--------------------------------------------------------------
@@ -78,10 +106,13 @@ void ofApp::update(){
 	} else if (game_state == "pause") {
 
 	} else if (game_state == "game") {
+
+		
 		player_1.update();
 		update_projectiles();
 		enemy_and_projectiles_out_of_bounds();
 		check_powerup_collision();
+		player_1.update_power_ups(player_1.current_power_ups);
 
 		for (int i = 0; i < enemies.size(); i++) {
 			enemies[i].update();
@@ -94,17 +125,13 @@ void ofApp::update(){
 
 		if (game_brain.should_spawn_enemies()) {
 
-			Enemy new_enemy;
-			new_enemy.setup(max_enemy_shoot_interval, &enemy_image, "base_enemy");
-			enemies.push_back(new_enemy);
+			spawn_needed_enemy();
 
 		}
 
 		if (game_brain.should_spawn_powerups(number_of_enemies_killed) && !spawned_once_powerup) {
 
-			PowerUp new_PowerUp;
-			new_PowerUp.setup(false, "speed", &life_image);
-			power_ups.push_back(new_PowerUp);
+			spawn_random_powerups();
 
 			spawned_once_powerup = true;
 
@@ -182,7 +209,7 @@ void ofApp::keyReleased(int key){
 
 	if (game_state == "start") {
 		game_state = "game";
-		game_brain.setup(ofGetElapsedTimeMillis(), 5000);
+		game_brain.setup(ofGetElapsedTimeMillis(), 2000);
 
 	} else if (game_state == "game") {
 		if (key == OF_KEY_LEFT || key == 'A' || key == 'a') {
@@ -204,6 +231,7 @@ void ofApp::keyReleased(int key){
 		if (key == 'p' || key == 'P') {
 			game_state = "pause";
 		}
+
 	} else if (game_state == "pause") {
 		game_state = "game";
 		ofResetElapsedTimeCounter();
@@ -272,8 +300,8 @@ void ofApp::update_projectiles() {
 		if (projectile_list[i].pos.y == projectile_list[i].mouse_clicked_at.y && projectile_list[i].pos.x == projectile_list[i].mouse_clicked_at.x) {
 			projectile_list.erase(projectile_list.begin() + i);
 		}
-		check_collisions();
 	}
+	check_collisions();
 }
 
 
@@ -283,10 +311,12 @@ void ofApp::check_collisions() {
 		if (projectile_list[i].from_player) {
 			for (int e = 0; e < enemies.size(); e++) {
 				if (ofDist(projectile_list[i].pos.x, projectile_list[i].pos.y, enemies[e].pos.x, enemies[e].pos.y) < (enemies[e].width + projectile_list[i].width) / 2) {
-					if (enemies[e].health - projectile_list[i].damage_per_hit <= 0) {
+					if (enemies[e].health - projectile_list[i].damage_per_hit <= 0.0) {
 						enemies.erase(enemies.begin() + e);
+						score += 30;
 						number_of_enemies_killed++;
 						spawned_once_powerup = false;
+						change_current_level();
 
 					} else {
 						enemies[e].health -= projectile_list[i].damage_per_hit;
@@ -319,12 +349,14 @@ void ofApp::check_collisions() {
 //--------------------------------------------------------------
 void ofApp::change_current_level() {
 
-	if (score > 300) {
+	if (score >= 300) {
 		game_state = "end_win";
 	} else if (score >= 200) {
 		game_brain.current_level = 2;
 	} else if (score >= 100) {
 		game_brain.current_level = 1;
+	} else if (score >= 0) {
+		game_brain.current_level = 0;
 	}
 
 }
@@ -350,7 +382,7 @@ void ofApp::enemy_and_projectiles_out_of_bounds() {
 void ofApp::draw_lives() {
 
 	if (player_1.invincible_mode) {
-		invincible_text.draw(invincible_text.getWidth() + 10, ofGetHeight() - invincible_text.getHeight() - 5);
+		invincible_text.draw(invincible_text.getWidth() - 400, ofGetHeight() - invincible_text.getHeight() - 5);
 	}
 	for (int i = 0; i < player_1.lives; i++) {
 		//player_image.draw(i * player_image.getWidth() + 10, ofGetHeight() - player_image.getHeight() - 5);
@@ -363,6 +395,7 @@ void ofApp::check_powerup_collision() {
 	
 	for (int i = 0; i < power_ups.size(); i++) {
 		if (ofDist(power_ups[i].pos.x, power_ups[i].pos.y, player_1.pos.x, player_1.pos.y) < (power_ups[i].width + player_1.width) / 2) {
+			power_ups[i].start_time = ofGetElapsedTimeMillis();
 			player_1.current_power_ups.push_back(power_ups[i]);
 			player_1.power_up_affect(power_ups[i].stat_boosted, power_ups[i].affect, +1);
 			power_ups.erase(power_ups.begin() + i);
@@ -397,6 +430,7 @@ void ofApp::change_sprite(int sprite_number) {
 
 }
 
+//--------------------------------------------------------------
 void ofApp::reset_pause_timers() {
 
 	game_brain.start_time = 0;
@@ -404,6 +438,89 @@ void ofApp::reset_pause_timers() {
 		enemies[i].start_shoot = 0;
 	}
 }
+
+//--------------------------------------------------------------
+void ofApp::spawn_random_powerups() {
+
+	int random = (int) ofRandom(0, 3);
+
+	if (random == 0) {
+
+		PowerUp new_PowerUp;
+		new_PowerUp.setup(true, "speed", &powerup_speed);
+		power_ups.push_back(new_PowerUp);
+
+	} else if (random == 1) {
+
+		PowerUp new_PowerUp;
+		new_PowerUp.setup(true, "damage", &powerup_damage);
+		power_ups.push_back(new_PowerUp);
+
+	} else if (random == 2) {
+
+		PowerUp new_PowerUp;
+		new_PowerUp.setup(true, "health_time", &powerup_health);
+		power_ups.push_back(new_PowerUp);
+	}
+}
+
+//--------------------------------------------------------------
+void ofApp::play_pressedGUGD() {
+	if (SSS_sound.isPlaying()) {
+		SSS_sound.stop();
+	}
+	GUGD_sound.play();
+}
+
+//--------------------------------------------------------------
+void ofApp::play_pressedSSS() {
+	if (GUGD_sound.isPlaying()) {
+		GUGD_sound.stop();
+	}
+	SSS_sound.play();
+}
+
+//--------------------------------------------------------------
+void ofApp::stop_pressed() {
+	GUGD_sound.stop();
+	SSS_sound.stop();
+} 
+
+//--------------------------------------------------------------
+void ofApp::spawn_needed_enemy() {
+
+	if (game_brain.current_level == 0) {
+		Enemy new_enemy;
+		new_enemy.setup(max_enemy_shoot_interval, &enemy_base_form, "base_enemy");
+		enemies.push_back(new_enemy);
+	} else if (game_brain.current_level == 1) {
+		int number = (int) ofRandom(0, 3);
+		if (number != 2) {
+			Enemy new_enemy;
+			new_enemy.setup(max_enemy_shoot_interval, &enemy_base_form, "base_enemy");
+			enemies.push_back(new_enemy);
+		} else {
+			Enemy new_enemy;
+			new_enemy.setup(max_enemy_shoot_interval, &enemy_second_form, "second_form_enemy");
+			enemies.push_back(new_enemy);
+		}
+	} else if (game_brain.current_level == 2) {
+		int number = (int)ofRandom(0, 4);
+
+		if (number == 2) {
+			Enemy new_enemy;
+			new_enemy.setup(max_enemy_shoot_interval, &enemy_base_form, "base_enemy");
+			enemies.push_back(new_enemy);
+		} else {
+			Enemy new_enemy;
+			new_enemy.setup(max_enemy_shoot_interval, &enemy_second_form, "second_form_enemy");
+			enemies.push_back(new_enemy);
+		}
+	}
+
+}
+
+
 
 
 

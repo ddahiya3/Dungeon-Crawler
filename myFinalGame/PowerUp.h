@@ -22,7 +22,7 @@ public :
 
 	float calculate_affected_stat(string stat);
 
-	void draw();
+	void draw() const;
 
 	ofImage * img;
 };

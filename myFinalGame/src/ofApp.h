@@ -32,10 +32,13 @@ class ofApp : public ofBaseApp{
 
 		ofImage enemy_bullet_image;
 		ofImage player_bullet_image;
-		ofImage enemy_image;
+		ofImage enemy_base_form;
+		ofImage enemy_second_form;
 		ofImage life_image;
 		ofImage start_screen;
 		ofImage end_screen;
+
+
 
 		ofImage background_game;
 
@@ -71,14 +74,29 @@ class ofApp : public ofBaseApp{
 		ofImage doctor_right;
 		ofImage doctor_left;
 
+		ofImage powerup_speed;
+		ofImage powerup_health;
+		ofImage powerup_damage;
+
 		ofxIntSlider spritenumbers;
 
 		ofxPanel panel;
+
+		ofxButton play_1;
+		ofxButton play_2;
+		ofxButton stop;
+
+		void play_pressedGUGD();
+		void play_pressedSSS();
+		void stop_pressed();
 
 
 		ofTrueTypeFont score_font;
 
 		ofSoundPlayer collision_sound;
+
+		ofSoundPlayer GUGD_sound;
+		ofSoundPlayer SSS_sound;
 
 
 		vector<Projectile> projectile_list;
@@ -107,4 +125,6 @@ class ofApp : public ofBaseApp{
 		void reset_pause_timers();
 		
 		void spawn_random_powerups();
+
+		void spawn_needed_enemy();
 };

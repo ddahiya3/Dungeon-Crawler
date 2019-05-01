@@ -21,6 +21,8 @@ void PowerUp::setup(bool time_based, string stat, ofImage * _img) {
 
 	img = _img;
 
+	img->resize(50, 50);
+
 	pos.x = ofRandom(0, ofGetWidth());
 
 	pos.y = ofRandom(0, ofGetHeight());
@@ -30,9 +32,7 @@ void PowerUp::setup(bool time_based, string stat, ofImage * _img) {
 
 float PowerUp::calculate_affected_stat(string stat) {
 
-	if (stat == "health_no_time" && !time_effect) {
-		return 1;
-	} else if (stat == "health_time") {
+	if (stat == "health_time") {
 		return 100;
 	} else if (stat == "speed") {
 		return 5;
@@ -41,7 +41,7 @@ float PowerUp::calculate_affected_stat(string stat) {
 	} 
 }
 
-void PowerUp::draw() {
+void PowerUp::draw() const {
 	
 	img->draw(pos.x - width / 2, pos.y - width / 2);
 
