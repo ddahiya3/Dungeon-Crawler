@@ -19,7 +19,7 @@ public:
 
 	bool invincible_mode;
 
-	void setup(ofImage * _img_right, ofImage * _img_left);
+	void setup(ofImage * _img_right, ofImage * _img_left, ofImage * _img_up);
 	void update();
 	void draw() const;
 	void shoot();
@@ -28,19 +28,17 @@ public:
 
 	void power_up_affect(string stat, float boost, int sign);
 
-	//bool check_can_shoot();
-
 	vector <PowerUp> current_power_ups;
 
 	void update_power_ups(vector <PowerUp> current_power_ups);
 
-	void change_image(ofImage * _img_right, ofImage * _img_left);
-	
-	ofImage * img;
+	void change_image(ofImage * _img_right, ofImage * _img_left, ofImage * _img_up);
 
 	ofImage * img_right;
 
 	ofImage * img_left;
+
+	ofImage * img_up;
 
 };
 

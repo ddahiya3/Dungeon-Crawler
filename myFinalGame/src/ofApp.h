@@ -32,13 +32,13 @@ class ofApp : public ofBaseApp{
 
 		ofImage enemy_bullet_image;
 		ofImage player_bullet_image;
+
 		ofImage enemy_base_form;
 		ofImage enemy_second_form;
-		ofImage life_image;
+
 		ofImage start_screen;
-		ofImage end_screen;
-
-
+		ofImage end_screen_loss;ofImage pause_screen;
+		ofImage end_screen_win;
 
 		ofImage background_game;
 
@@ -46,33 +46,43 @@ class ofApp : public ofBaseApp{
 
 		ofImage berzerker_right;
 		ofImage berzerker_left;
+		ofImage berzerker_up;
 
 		ofImage clown_right;
 		ofImage clown_left;
+		ofImage clown_up;
 
 		ofImage rogue_right;
 		ofImage rogue_left;
+		ofImage rogue_up;
 
 		ofImage ninja_right;
 		ofImage ninja_left;
+		ofImage ninja_up;
 
 		ofImage knight_right;
 		ofImage knight_left;
+		ofImage knight_up;
 
 		ofImage priest_right;
 		ofImage priest_left;
+		ofImage priest_up;
 
 		ofImage shottyguy_right;
 		ofImage shottyguy_left;
+		ofImage shottyguy_up;
 
 		ofImage engineer_right;
 		ofImage engineer_left;
+		ofImage engineer_up;
 
 		ofImage wizard_right;
 		ofImage wizard_left;
+		ofImage wizard_up;
 
 		ofImage doctor_right;
 		ofImage doctor_left;
+		ofImage doctor_up;
 
 		ofImage powerup_speed;
 		ofImage powerup_health;
@@ -94,14 +104,13 @@ class ofApp : public ofBaseApp{
 		ofTrueTypeFont score_font;
 
 		ofSoundPlayer collision_sound;
-
+		ofSoundPlayer hit_player;
 		ofSoundPlayer GUGD_sound;
 		ofSoundPlayer SSS_sound;
 
 
 		vector<Projectile> projectile_list;
 		vector<Enemy> enemies;
-		//vector<Life> bonuses;
 		vector <PowerUp> power_ups;
 
 		float max_enemy_shoot_interval = 1.0;
@@ -116,7 +125,7 @@ class ofApp : public ofBaseApp{
 
 		void enemy_and_projectiles_out_of_bounds();
 
-		void draw_lives();
+		void draw_invincible();
 
 		void check_powerup_collision();
 

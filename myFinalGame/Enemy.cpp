@@ -3,6 +3,7 @@
 #include "Enemy.h"
 
 void Enemy::setup(float max_enemy_shoot_interval, ofImage * enemy_image, string enemy_type) {
+
 	pos.x = ofRandom(ofGetWidth() - 150);
 	pos.y = ofRandom(ofGetHeight() - 150);
 	img = enemy_image;
@@ -12,6 +13,7 @@ void Enemy::setup(float max_enemy_shoot_interval, ofImage * enemy_image, string 
 	speed = ofRandom(1, 3);
 	type_of_enenmy = enemy_type;
 	health = calculate_health(enemy_type);
+
 }
 void Enemy::update() {
 

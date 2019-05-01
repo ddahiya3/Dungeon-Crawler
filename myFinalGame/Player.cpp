@@ -2,7 +2,7 @@
 
 #include "Player.h"
 
-void Player::setup(ofImage * _img_right, ofImage * _img_left) {
+void Player::setup(ofImage * _img_right, ofImage * _img_left, ofImage * _img_up) {
 
 	lives = 3;
 
@@ -14,12 +14,15 @@ void Player::setup(ofImage * _img_right, ofImage * _img_left) {
 	img_left = _img_left;
 	img_left->resize(100, 100);
 
+	img_up = _img_up;
+	img_up->resize(100, 100);
+
 	width = height = img_right->getWidth();
 
 	pos.x = ofGetWidth() / 2;
 	pos.y = ofGetHeight() - height * 2;
 
-	invincible_mode = true;
+	invincible_mode = false;
 }
 
 void Player::update() {
@@ -32,6 +35,8 @@ void Player::draw() const {
 		img_right->draw(pos.x - width / 2, pos.y - height / 2);
 	} else if (is_left_pressed) {
 		img_left->draw(pos.x - width / 2, pos.y - height / 2);
+	} else if (is_up_pressed) {
+		img_up->draw(pos.x - width / 2, pos.y - height / 2);
 	} else {
 		img_right->draw(pos.x - width / 2, pos.y - height / 2);
 	}
@@ -81,11 +86,14 @@ void Player::update_power_ups(vector <PowerUp> current_power_ups) {
 	}
 }
 
-void Player::change_image(ofImage* _img_right, ofImage* _img_left) {
+void Player::change_image(ofImage* _img_right, ofImage* _img_left, ofImage * _img_up) {
 	
 	img_right = _img_right;
 	img_right->resize(70, 70);
 
 	img_left = _img_left;
 	img_left->resize(70, 70);
+
+	img_up = _img_up;
+	img_up->resize(70, 70);
 }

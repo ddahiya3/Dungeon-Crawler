@@ -3,6 +3,7 @@
 class Enemy {
 public:
 	ofPoint pos;
+
 	float width;
 
 	float start_shoot;
@@ -18,6 +19,7 @@ public:
 	void setup(float max_enemy_shoot_interval, ofImage * enemy_image, string enemy_type);
 	void update();
 	void draw() const;
+
 	bool time_to_shoot();
 
 	float calculate_health(string enemy);
