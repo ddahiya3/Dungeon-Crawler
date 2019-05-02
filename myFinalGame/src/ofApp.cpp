@@ -230,7 +230,7 @@ void ofApp::keyReleased(int key){
 
 	if (game_state == "start") {
 		game_state = "game";
-		game_brain.setup(ofGetElapsedTimeMillis(), 2000);
+		game_brain.setup(ofGetElapsedTimeMillis(), 1000);
 
 	} else if (game_state == "game") {
 		if (key == OF_KEY_LEFT || key == 'A' || key == 'a') {
@@ -386,9 +386,9 @@ void ofApp::check_collisions() {
 //--------------------------------------------------------------
 void ofApp::change_current_level() {
 
-	if (score >= 300) {
+	if (score >= 1000) {
 		game_state = "end_win";
-	} else if (score >= 200) {
+	} else if (score >= 500) {
 		game_brain.current_level = 2;
 	} else if (score >= 100) {
 		game_brain.current_level = 1;
