@@ -28,3 +28,7 @@
 * Fine tuned visual aspects of game
 * Added logic to spawn 2 different types of enemies and basic level logic
 * Worked in GUI to allow soundtrack and sprite choosing
+
+**4/1/2019**
+* Finishing touches on the game like adding end screens 
+* Added hit sound on player
